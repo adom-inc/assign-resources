@@ -69,7 +69,10 @@ macro_rules! assign_resources {
     } => {
         #[allow(dead_code,non_snake_case,missing_docs)]
         pub struct AssignedResources {
-            $(pub $group_name : $group_struct),*
+            $(
+                $(#[$outer])*
+                pub $group_name : $group_struct
+            ),*
         }
         $(
             #[allow(dead_code,non_snake_case)]
@@ -93,7 +96,9 @@ macro_rules! assign_resources {
         macro_rules! split_resources (
             ($p:ident) => {
                 AssignedResources {
-                    $($group_name: $group_struct {
+                    $(
+                        $(#[$outer])*
+                        $group_name: $group_struct {
                         $($resource_name: $p.$resource_field),*
                     }),*
                 }
