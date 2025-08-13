@@ -99,7 +99,10 @@ macro_rules! assign_resources {
                     $(
                         $(#[$outer])*
                         $group_name: $group_struct {
-                        $($resource_name: $p.$resource_field),*
+                        $(
+                             $(#[$inner])*
+                             $resource_name: $p.$resource_field
+                        ),*
                     }),*
                 }
             }
